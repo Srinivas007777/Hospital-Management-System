@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- LOGIN PAGE -->
+    <div id="loginView" class="login-screen">
+        <form id="loginForm" class="login-card">
+            <div class="brand-mark">+</div>
+
+            <h1>Hospital Management</h1>
+            <p class="muted">Sign in to manage hospital operations</p>
+
+            <label for="username">Username</label>
+            <input
+                id="username"
+                name="username"
+                autocomplete="username"
+                required
+            >
+
+            <label for="password">Password</label>
+            <input
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button class="primary full" type="submit">
+                Sign in
+            </button>
+
+            <p id="loginMessage" class="message"></p>
+        </form>
+    </div>
+
+    <!-- MAIN APPLICATION -->
+    <div id="appView" class="app hidden">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="sidebar-brand">
+                <span class="brand-mark small">+</span>
+                <span>CarePoint</span>
+            </div>
+
+            <div class="nav-label">WORKSPACE</div>
+
+            <button class="nav-link active" data-page="dashboard">
+                <span>▦</span> Dashboard
+            </button>
+
+            <button class="nav-link" data-page="patients">
+                <span>♡</span> Patients
+            </button>
+
+            <button class="nav-link" data-page="doctors">
+                <span>✚</span> Doctors
+            </button>
+
+            <button class="nav-link" data-page="appointments">
+                <span>▣</span> Appointments
+            </button>
+
+            <button class="nav-link" data-page="prescriptions">
+                <span>▤</span> Prescriptions
+            </button>
+
+            <div class="sidebar-bottom">
+
+                <div class="user-mini">
+                    <div class="avatar" id="userAvatar">U</div>
+
+                    <div>
+                        <strong id="sidebarUsername">User</strong>
+                        <small id="sidebarRole">Role</small>
+                    </div>
+                </div>
+
+                <button id="logoutButton" class="logout-button">
+                    ↪ Sign out
+                </button>
+
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+
+            <header class="topbar">
+                <div>
+                    <div class="eyebrow">HOSPITAL WORKSPACE</div>
+                    <h2 id="pageTitle">Dashboard</h2>
+                </div>
+
+                <div class="topbar-user">
+                    <span class="status-dot"></span>
+                    <span id="topUsername">User</span>
+                </div>
+            </header>
+
+            <!-- DASHBOARD -->
+            <section id="dashboardPage" class="page">
+
+                <div class="welcome-row">
+                    <div>
+                        <h3>Overview</h3>
+                        <p class="muted">
+                            A quick view of hospital activity.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+
+                    <article class="stat-card">
+                        <div class="stat-icon blue">♡</div>
+                        <p>Total patients</p>
+                        <strong id="patientCount">—</strong>
+                        <small>Registered patients</small>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-icon green">✚</div>
+                        <p>Total doctors</p>
+                        <strong id="doctorCount">—</strong>
+                        <small>Available doctors</small>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-icon orange">▣</div>
+                        <p>Appointments</p>
+                        <strong id="appointmentCount">—</strong>
+                        <small>Recorded appointments</small>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-icon purple">▤</div>
+                        <p>Prescriptions</p>
+                        <strong id="prescriptionCount">—</strong>
+                        <small>Recorded prescriptions</small>
+                    </article>
+
+                </div>
+
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h3>Welcome</h3>
+                            <p class="muted">
+                                Use the navigation to manage hospital records.
+                            </p>
+                        </div>
+                    </div>
+
+                    <p class="welcome-note">
+                        Keep patient, doctor, appointment and prescription
+                        information organized in one place.
+                    </p>
+                </div>
+
+            </section>
+
+            <!-- PATIENTS -->
+            <section id="patientsPage" class="page hidden">
+
+                <div class="panel">
+
+                    <div class="panel-heading">
+                        <div>
+                            <h3>Patients</h3>
+                            <p class="muted">
+                                View and manage patient records.
+                            </p>
+                        </div>
+
+                        <button class="primary add-button" data-add="patients">
+                            + Add patient
+                        </button>
+                    </div>
+
+                    <div class="toolbar">
+                        <input
+                            class="search-input"
+                            data-search="patients"
+                            placeholder="Search patients..."
+                        >
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead id="patientsHead"></thead>
+                            <tbody id="patientsBody"></tbody>
+                        </table>
+                    </div>
+
+                    <p id="patientsMessage" class="table-message"></p>
+
+                </div>
+            </section>
+
+            <!-- DOCTORS -->
+            <section id="doctorsPage" class="page hidden">
+
+                <div class="panel">
+
+                    <div class="panel-heading">
+                        <div>
+                            <h3>Doctors</h3>
+                            <p class="muted">
+                                View and manage doctor records.
+                            </p>
+                        </div>
+
+                        <button class="primary add-button" data-add="doctors">
+                            + Add doctor
+                        </button>
+                    </div>
+
+                    <div class="toolbar">
+                        <input
+                            class="search-input"
+                            data-search="doctors"
+                            placeholder="Search doctors..."
+                        >
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead id="doctorsHead"></thead>
+                            <tbody id="doctorsBody"></tbody>
+                        </table>
+                    </div>
+
+                    <p id="doctorsMessage" class="table-message"></p>
+
+                </div>
+            </section>
+
+            <!-- APPOINTMENTS -->
+            <section id="appointmentsPage" class="page hidden">
+
+                <div class="panel">
+
+                    <div class="panel-heading">
+                        <div>
+                            <h3>Appointments</h3>
+                            <p class="muted">
+                                View and manage appointments.
+                            </p>
+                        </div>
+
+                        <button class="primary add-button" data-add="appointments">
+                            + Add appointment
+                        </button>
+                    </div>
+
+                    <div class="toolbar">
+                        <input
+                            class="search-input"
+                            data-search="appointments"
+                            placeholder="Search appointments..."
+                        >
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead id="appointmentsHead"></thead>
+                            <tbody id="appointmentsBody"></tbody>
+                        </table>
+                    </div>
+
+                    <p id="appointmentsMessage" class="table-message"></p>
+
+                </div>
+            </section>
+
+            <!-- PRESCRIPTIONS -->
+            <section id="prescriptionsPage" class="page hidden">
+
+                <div class="panel">
+
+                    <div class="panel-heading">
+                        <div>
+                            <h3>Prescriptions</h3>
+                            <p class="muted">
+                                View and manage prescriptions.
+                            </p>
+                        </div>
+
+                        <button class="primary add-button" data-add="prescriptions">
+                            + Add prescription
+                        </button>
+                    </div>
+
+                    <div class="toolbar">
+                        <input
+                            class="search-input"
+                            data-search="prescriptions"
+                            placeholder="Search prescriptions..."
+                        >
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead id="prescriptionsHead"></thead>
+                            <tbody id="prescriptionsBody"></tbody>
+                        </table>
+                    </div>
+
+                    <p id="prescriptionsMessage" class="table-message"></p>
+
+                </div>
+            </section>
+
+            <footer>
+                Hospital Management System
+                <span>•</span>
+                Local development
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- ADD / EDIT MODAL -->
+    <div id="recordModal" class="modal hidden"
+         role="dialog" aria-modal="true">
+
+        <div class="modal-card">
+
+            <div class="modal-heading">
+                <div>
+                    <div class="eyebrow">RECORD DETAILS</div>
+                    <h3 id="modalTitle">Add record</h3>
+                </div>
+
+                <button id="closeModal" class="icon-button">
+                    ×
+                </button>
+            </div>
+
+            <form id="recordForm">
+
+                <div id="formFields" class="form-grid"></div>
+
+                <p id="formMessage" class="message"></p>
+
+                <div class="modal-actions">
+                    <button type="button" id="cancelModal" class="secondary">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="primary">
+                        Save record
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
